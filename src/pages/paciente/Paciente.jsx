@@ -8,6 +8,7 @@ import PacienteService from '../../services/PacienteService'
 import pacienteValidator from '../../validators/pacienteValidator'
 import { mask } from 'remask'
 import { BsFillPersonFill, BsSearch } from 'react-icons/bs'
+import { Menu } from '../../components/Menu'
 
 export const Pacientes = () => {
 
@@ -42,6 +43,8 @@ export const Pacientes = () => {
   }
   return (
     <div>
+
+      <Menu/>
       <h1 className='d-flex align-items-center justify-content-center mt-3'><BsFillPersonFill></BsFillPersonFill> PACIENTES </h1>
 
       <Form>

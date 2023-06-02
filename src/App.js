@@ -1,5 +1,4 @@
 import './App.css';
-import Menu from "./components/Menu";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Financeiro from './pages/financeiro/Financeiro';
 import FinanceiroLista from './pages/financeiro/FinanceiroLista';
@@ -11,21 +10,26 @@ import Hospital from './pages/hospital/Hospital';
 import HospitalLista from './pages/hospital/HospitalLista';
 import Servico from './pages/servico/Servico';
 import ServicoLista from './pages/servico/ServicoLista';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from './pages/login';
+import Private from './routes/Private';
+
 import { Container } from 'react-bootstrap';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+
 
 function App() {
+
   return (
     <div className='background-image'>
 
       <BrowserRouter>
 
-        <Menu />
-
         <Container >
         <Routes>
-          <Route path="/paciente" element={<Paciente />} />
-          <Route path="/paciente/lista" element={<PacienteLista />} />
+          <Route path="/" element={<Login/>} />
+          <Route path="/paciente" element={<Private> <Paciente /></Private>} />
+          <Route path="/paciente/lista" element={<Private> <PacienteLista /> </Private>} />
           <Route path="/paciente/:id" element={<Paciente />} />
           <Route path="/hospital" element={<Hospital />} />
           <Route path="/hospital/lista" element={<HospitalLista />} />

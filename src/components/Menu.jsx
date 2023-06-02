@@ -1,32 +1,33 @@
-import React from 'react'
-import { Container, Nav, Navbar } from 'react-bootstrap'
+import './menu.css'
+
+import { BiLogOut } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
 
-const Menu = () => {
-  return (
-    <div>
+import { auth } from '../firebase/firebaseConnection'
+import { signOut } from 'firebase/auth'
 
-      <Navbar variant="dark" className="mb-3 menu" >
-        <Container>
-          <Navbar.Brand href="#home"><img
-        src="https://sistemajk.nutrificabrasilia.com.br/images/logo-login@2x.png"
-        width="200"
-        height="45"
-        className="d-inline-block align-top"
-        alt="React Bootstrap logo"
-      />
-      </Navbar.Brand>
-          <Nav className="me-auto">
-            <Link className="nav-link" to="/paciente">PACIENTES  •  </Link>
-            <Link className="nav-link" to="/insumo">INSUMOS  •  </Link>
-            <Link className="nav-link" to="/financeiro">  FINANCEIRO  •  </Link>
-            <Link className="nav-link" to="/hospital">  HOSPITAL </Link>
-          </Nav>
-        </Container>
-      </Navbar>
+export function Menu(){
 
-    </div>
+  async function handleLogout(){
+    await signOut(auth)
+  }
+
+  return(
+    <header className="admin-header">
+      <nav className='nav-header'>
+        <button onClick={handleLogout}>
+          <BiLogOut size={28} color='#DB2629'/>
+        </button>
+        <Link to="/admin">
+          CheckLists
+        </Link>
+        <Link to="/motoristas">
+          Motoristas
+        </Link>
+        <Link to="/veiculos">
+          Veículos
+        </Link>
+      </nav>
+    </header>
   )
 }
-
-export default Menu

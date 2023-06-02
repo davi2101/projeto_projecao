@@ -10,6 +10,7 @@ import { BsCashCoin, BsSearch } from 'react-icons/bs'
 import { Carousel } from 'react-bootstrap'
 import { mask } from 'remask'
 
+
 export const Financeiros = () => {
 
   const params = useParams()
@@ -45,7 +46,12 @@ export const Financeiros = () => {
 
   return (
     <div>
+
+
+
       <h1 className='d-flex align-items-center justify-content-center mt-3'><BsCashCoin></BsCashCoin> FINANCEIRO</h1>
+
+      
 
       <Carousel>
         <Carousel.Item width="50">
