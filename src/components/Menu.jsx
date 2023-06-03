@@ -18,14 +18,17 @@ export function Menu(){
         <button onClick={handleLogout}>
           <BiLogOut size={28} color='#DB2629'/>
         </button>
-        <Link to="/admin">
-          CheckLists
+        <Link to="/insumo">
+          Insumo
         </Link>
-        <Link to="/motoristas">
-          Motoristas
+        <Link to="/paciente">
+          Paciente
         </Link>
-        <Link to="/veiculos">
-          Veículos
+        <Link to="/financeiro">
+          Financeiro
+        </Link>
+        <Link to="/hospital">
+          Hospital
         </Link>
       </nav>
     </header>

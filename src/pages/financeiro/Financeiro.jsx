@@ -9,6 +9,7 @@ import financeiroValidator from '../../validators/financeiroValidator'
 import { BsCashCoin, BsSearch } from 'react-icons/bs'
 import { Carousel } from 'react-bootstrap'
 import { mask } from 'remask'
+import { Menu } from '../../components/Menu'
 
 
 export const Financeiros = () => {
@@ -47,28 +48,11 @@ export const Financeiros = () => {
   return (
     <div>
 
-
+      <Menu/>
 
       <h1 className='d-flex align-items-center justify-content-center mt-3'><BsCashCoin></BsCashCoin> FINANCEIRO</h1>
 
       
-
-      <Carousel>
-        <Carousel.Item width="50">
-          <img
-            className="d-block w-100"
-            src="https://zagblogmedia.s3.amazonaws.com/wp-content/uploads/2018/06/10140220/investimento-TI-1024x682-750x400.jpg"
-            alt="First slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item width="50">
-          <img
-            className="d-block w-100"
-            src="https://i6tecnologia.blob.core.windows.net/arquivos/postagens/c-168-sf1.jpg"
-            alt="Second slide"
-          />
-        </Carousel.Item>
-      </Carousel>
 
       <br></br>
       <Form>

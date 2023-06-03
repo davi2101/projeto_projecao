@@ -9,6 +9,7 @@ import insumoValidator from '../../validators/insumoValidator'
 import { BsDropletFill, BsSearch } from 'react-icons/bs'
 import { Carousel } from 'react-bootstrap'
 import { mask } from 'remask'
+import { Menu } from '../../components/Menu'
 
 export const Insumos = () => {
 
@@ -44,7 +45,9 @@ export const Insumos = () => {
 }  
 
   return (
+
     <div>
+      <Menu/>
       <h1 className='d-flex align-items-center justify-content-center mt-3'><BsDropletFill></BsDropletFill> INSUMOS</h1>
 
       <Form>

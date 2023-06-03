@@ -8,6 +8,7 @@ import HospitalService from '../../services/HospitalService'
 import hospitalValidator from '../../validators/hospitalValidator'
 import { mask } from 'remask'
 import { BsBuilding, BsSearch } from 'react-icons/bs'
+import { Menu } from '../../components/Menu'
 
 export const Hospitals = () => {
 
@@ -41,7 +42,9 @@ export const Hospitals = () => {
     setValue(event.target.name, mask(event.target.value, mascara))
   }
   return (
+    
     <div>
+      <Menu/>
       <h1 className='d-flex align-items-center justify-content-center mt-3'><BsBuilding></BsBuilding> HOSPITAL </h1>
 
       <Form>
