@@ -7,7 +7,6 @@ import FinanceiroService from '../../services/FinanceiroService'
 import HospitalService from '../../services/HospitalService'
 import financeiroValidator from '../../validators/financeiroValidator'
 import { BsCashCoin, BsSearch } from 'react-icons/bs'
-import { Carousel } from 'react-bootstrap'
 import { mask } from 'remask'
 import { Menu } from '../../components/Menu'
 
@@ -56,20 +55,19 @@ export const Financeiros = () => {
 
       <br></br>
       <Form>
-        <Form.Group className="m-3" controlId="hospital">
-          <Form.Label></Form.Label>
-          <Form.Select {...register("hospital", financeiroValidator.hospital)}>
-            <option>-SELECIONE-</option>
-            {hospital.map((item, i) => (
-              <option key={i} value={item.nome}>{item.nome}</option>
-            ))}
-          </Form.Select>
-          {errors.hospital && <span>Campo Obrigatório</span>}
+        <Form.Group className="m-3" controlId="instituicao">
+          <Form.Label>  </Form.Label>
+          <Form.Control isInvalid={errors.instituicao} placeholder="NOME DO HOSPITAL" type="text" 
+          {...register("instituicao", financeiroValidator.instituicao)} 
+          />
+          {errors.instituicao && <span>{errors.instituicao.message}</span>}
         </Form.Group>
 
         <Form.Group className="m-3" controlId="nota">
           <Form.Label>  </Form.Label>
-          <Form.Control isInvalid={errors.nota} placeholder="Nº DA NOTA" type="number" {...register("nota", financeiroValidator.nota)} />
+          <Form.Control isInvalid={errors.nota} placeholder="Nº DA NOTA" type="number" 
+          {...register("nota", financeiroValidator.nota)} 
+          />
           {errors.nota && <span>{errors.nota.message}</span>}
         </Form.Group>
 
@@ -98,7 +96,7 @@ export const Financeiros = () => {
         </Form.Group>
 
         <div className='text-right'>
-        <Link className='btn btn-dark' to={'/financeiro/lista'}><BsSearch />Pesquisar</Link>
+        <Link className='btn btn-dark' to={'/financeiro/lista'}><BsSearch /></Link>
         </div>
 
         <div className='text-center'>

@@ -6,7 +6,18 @@ const pacienteValidator = {
             message: "Quantidade mínima de caracteres não informado"
         },
         maxLength: {
-            value: 20,
+            value: 50,
+            message: "Quantidade máxima de caracteres ultrapassada"
+        },
+    },
+    hospital: {
+        required: "O Hospital é Obrigatório",
+        minLength: {
+            value: 3,
+            message: "Quantidade mínima de caracteres não informado"
+        },
+        maxLength: {
+            value: 50,
             message: "Quantidade máxima de caracteres ultrapassada"
         },
     },

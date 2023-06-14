@@ -25,7 +25,7 @@ export default function Login() {
     signInWithEmailAndPassword(auth, email, password)
     .then(() => {
       navigate("/paciente", { replace: true })
-      toast.success("Bem vindo de volta!!")
+      toast.success("Login com sucesso!!")
     })
     .catch((error) => {
       toast.error("Login ou senha inválidos")
@@ -34,10 +34,10 @@ export default function Login() {
 
   return (
     <div className='container'>
-      <h2>Tela de Login</h2>
+      <h2>Login</h2>
       <form onSubmit={handleLogin} className='form'>
         <div>
-          <label htmlFor="username">email:</label>
+          <label htmlFor="username">Email:</label>
           <input
             type="text"
             id="username"
@@ -51,7 +51,7 @@ export default function Login() {
           <input
             type="password"
             id="password"
-            placeholder='******'
+            placeholder='Senha'
             autoComplete='on'
             value={password}
             onChange={(e) => setPassword(e.target.value)}

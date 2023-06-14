@@ -76,7 +76,7 @@ export const Insumos = () => {
         </Form.Group>
 
         <div className='text-right'>
-        <Link className='btn btn-dark' to={'/insumo/lista'}><BsSearch />Pesquisar</Link>
+        <Link className='btn btn-dark' to={'/insumo/lista'}><BsSearch /></Link>
         </div>
 
         <div className='text-center'>

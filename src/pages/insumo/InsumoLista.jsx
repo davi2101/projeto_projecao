@@ -5,6 +5,7 @@ import InsumoService from '../../services/InsumoService'
 import { FaPlus } from 'react-icons/fa'
 import { BsPencilFill, BsTrash, BsDropletFill } from 'react-icons/bs'
 import Swal from 'sweetalert2'
+import { Menu } from '../../components/Menu'
 
 const InsumosLista = () => {
 
@@ -39,6 +40,7 @@ const InsumosLista = () => {
 
     return (
         <div>
+            <Menu/>
             <h1 className='d-flex align-items-center justify-content-center mt-3'><BsDropletFill></BsDropletFill> LISTA DOS INSUMOS</h1>
 
             <Link className="btn btn-primary" to={'/insumo'}><FaPlus />

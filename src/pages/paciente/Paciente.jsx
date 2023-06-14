@@ -50,8 +50,16 @@ export const Pacientes = () => {
       <Form>
         <Form.Group className="m-3" controlId="nome">
           <Form.Label> NOME: </Form.Label>
-          <Form.Control isInvalid={errors.nome} type="text" {...register("nome", pacienteValidator.nome)} />
+          <Form.Control isInvalid={errors.nome} type="text" 
+          {...register("nome", pacienteValidator.nome)} />
           {errors.nome && <span>{errors.nome.message}</span>}
+        </Form.Group>
+
+        <Form.Group className="m-3" controlId="hospital">
+          <Form.Label> HOSPITAL: </Form.Label>
+          <Form.Control isInvalid={errors.nome} type="text" 
+          {...register("hospital", pacienteValidator.hospital)} />
+          {errors.hospital && <span>{errors.hospital.message}</span>}
         </Form.Group>
 
         <Form.Group className="m-3" controlId="cpf">
@@ -77,17 +85,17 @@ export const Pacientes = () => {
 
         <Form.Group className="m-3" controlId="status">
           <Form.Label> STATUS: </Form.Label>
-          <Form.Select aria-label="Default select example">
-            <option>-SELECIONE-</option>
-            <option value="1">Em Tratamento</option>
-            <option value="2">Alta</option>
-            <option value="3">Óbito</option>
-            <option value="4">Suspenso</option>
-          </Form.Select>
+          <Form.Control
+            isInvalid={errors.status}
+            type="text"
+            {...register("status", pacienteValidator.status)}
+            onChange={handleChange}
+          />
+          {errors.status && <span>{errors.status.message}</span>}
         </Form.Group>
 
         <div className='text-right'>
-          <Link className='btn btn-dark' to={'/paciente/lista'}><BsSearch />Pesquisar</Link>
+          <Link className='btn btn-dark' to={'/paciente/lista'}><BsSearch /></Link>
         </div>
 
         <div className='text-center'>

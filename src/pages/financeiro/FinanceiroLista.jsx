@@ -5,6 +5,7 @@ import FinanceiroService from '../../services/FinanceiroService'
 import { FaPlus } from 'react-icons/fa'
 import { BsPencilFill, BsTrash, BsCashCoin } from 'react-icons/bs'
 import Swal from 'sweetalert2'
+import { Menu } from '../../components/Menu'
 
 const FinanceiroLista = () => {
 
@@ -39,6 +40,7 @@ const FinanceiroLista = () => {
 
     return (
         <div>
+            <Menu/>
             <h1 className='d-flex align-items-center justify-content-center mt-3'><BsCashCoin></BsCashCoin>LISTA DE NOTAS</h1>
 
             <Link className="btn btn-primary" to={'/financeiro'}><FaPlus />

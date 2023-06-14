@@ -5,6 +5,7 @@ import HospitalService from '../../services/HospitalService'
 import { FaPlus } from 'react-icons/fa'
 import { BsPencilFill, BsTrash, BsBuilding } from 'react-icons/bs'
 import Swal from 'sweetalert2'
+import { Menu } from '../../components/Menu'
 
 const HospitalLista = () => {
 
@@ -39,6 +40,7 @@ const HospitalLista = () => {
 
     return (
         <div>
+            <Menu/>
             <h1 className='d-flex align-items-center justify-content-center mt-3'><BsBuilding></BsBuilding> LISTA DE HOSPITAIS</h1>
 
             <Link className="btn btn-primary" to={'/hospital'}><FaPlus />

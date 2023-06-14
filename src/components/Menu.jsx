@@ -15,14 +15,11 @@ export function Menu(){
   return(
     <header className="admin-header">
       <nav className='nav-header'>
-        <button onClick={handleLogout}>
-          <BiLogOut size={28} color='#DB2629'/>
-        </button>
-        <Link to="/insumo">
-          Insumo
-        </Link>
         <Link to="/paciente">
           Paciente
+        </Link>
+        <Link to="/insumo">
+          Insumo
         </Link>
         <Link to="/financeiro">
           Financeiro
@@ -30,6 +27,9 @@ export function Menu(){
         <Link to="/hospital">
           Hospital
         </Link>
+        <button onClick={handleLogout}>
+          <BiLogOut size={28} color='#DB2629'/>
+        </button>
       </nav>
     </header>
   )

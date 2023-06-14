@@ -82,7 +82,7 @@ export const Hospitals = () => {
         </Form.Group>
 
         <div className='text-right'>
-          <Link className='btn btn-dark' to={'/hospital/lista'}><BsSearch />Pesquisar</Link>
+          <Link className='btn btn-dark' to={'/hospital/lista'}><BsSearch /></Link>
         </div>
 
         <div className='text-center'>
