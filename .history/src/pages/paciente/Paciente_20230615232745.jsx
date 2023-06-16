@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { FaCheck } from 'react-icons/fa'
 import { BsArrowLeft } from 'react-icons/bs'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import PacienteService from '../../services/PacienteService'
 import pacienteValidator from '../../validators/pacienteValidator'
 import { mask } from 'remask'
 import { BsFillPersonFill, BsSearch } from 'react-icons/bs'
@@ -35,13 +36,13 @@ export const Pacientes = () => {
     }
   }, [paciente, setValue]);
   
-
+  
   function salvar(dados, e) {
     e.preventDefault();
   
     if (params.id) {
       apiProjeto
-        .put(`/attPaciente/?id=${params.id}`, dados)
+        .put(`/attPaciente/${params.id}`, dados)
         .then(() => {
           toast.success("Dados do paciente atualizados com sucesso");
           navigate('/paciente/lista');

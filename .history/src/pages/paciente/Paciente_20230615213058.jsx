@@ -1,69 +1,42 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import { FaCheck } from 'react-icons/fa'
 import { BsArrowLeft } from 'react-icons/bs'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import PacienteService from '../../services/PacienteService'
 import pacienteValidator from '../../validators/pacienteValidator'
 import { mask } from 'remask'
 import { BsFillPersonFill, BsSearch } from 'react-icons/bs'
 import { Menu } from '../../components/Menu'
-import { toast } from 'react-toastify'
-
 import apiProjeto from '../../services/apiProjeto'
 
 export const Pacientes = () => {
-  const [paciente, setPaciente] = useState([]);
 
   const params = useParams()
   const navigate = useNavigate()
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
   useEffect(() => {
-    async function getPaciente() {
-      if (params.id) {
-        const response = await apiProjeto.get(`/idPaciente/${params.id}`);
-        setPaciente(response.data);
+    if (params.id) {
+      const paciente = apiProjeto.get(`/idPaciente/${params.id}`)
+
+      for (let campo in paciente) {
+        setValue(campo, paciente[campo])
       }
     }
-    getPaciente();
-  }, [params.id]);
-  
-  useEffect(() => {
-    for (let campo in paciente) {
-      setValue(campo, paciente[campo]);
-    }
-  }, [paciente, setValue]);
-  
+  }, [])
 
-  function salvar(dados, e) {
-    e.preventDefault();
-  
+  function salvar(dados) {
+
     if (params.id) {
-      apiProjeto
-        .put(`/attPaciente/?id=${params.id}`, dados)
-        .then(() => {
-          toast.success("Dados do paciente atualizados com sucesso");
-          navigate('/paciente/lista');
-        })
-        .catch((error) => {
-          toast.error("Erro ao atualizar os dados do paciente");
-          console.error(error);
-        });
+      PacienteService.update(params.id, dados)
     } else {
-      apiProjeto
-        .post('/addPaciente', dados)
-        .then(() => {
-          toast.success("Usuário cadastrado com sucesso");
-          navigate('/paciente/lista');
-        })
-        .catch((error) => {
-          toast.error("Erro ao cadastrar o paciente");
-          console.error(error);
-        });
+      PacienteService.create(dados)
     }
+
+    navigate('/paciente/lista')
   }
-  
 
   function handleChange(event) {
     const mascara = event.target.getAttribute('mask')
@@ -100,23 +73,23 @@ export const Pacientes = () => {
           {errors.cpf && <span>{errors.cpf.message}</span>}
         </Form.Group>
 
-        <Form.Group className="m-3" controlId="data_nascimento">
+        <Form.Group className="m-3" controlId="datanascimento">
           <Form.Label> DATA DE NASCIMENTO: </Form.Label>
           <Form.Control
             isInvalid={errors.datanascimento}
             type="text"
-            {...register("data_nascimento", pacienteValidator.datanascimento)}
+            {...register("datanascimento", pacienteValidator.datanascimento)}
             mask="99/99/9999" onChange={handleChange}
           />
           {errors.datanascimento && <span>{errors.datanascimento.message}</span>}
         </Form.Group>
 
-        <Form.Group className="m-3" controlId="situacao">
+        <Form.Group className="m-3" controlId="status">
           <Form.Label> STATUS: </Form.Label>
           <Form.Control
             isInvalid={errors.status}
             type="text"
-            {...register("situacao", pacienteValidator.status)}
+            {...register("status", pacienteValidator.status)}
             onChange={handleChange}
           />
           {errors.status && <span>{errors.status.message}</span>}

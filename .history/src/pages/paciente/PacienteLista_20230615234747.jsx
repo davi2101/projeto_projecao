@@ -21,27 +21,26 @@ const PacienteLista = () => {
     getPacientes()
   }, [pacientes])
 
-  function apagar(id) {
-    Swal.fire({
-      title: 'Deseja apagar?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sim, apagar!'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          await apiProjeto.delete(`/delPaciente?id=${id}`);
-          Swal.fire('Deletado!', 'Item deletado da Lista', 'success');
-        } catch (error) {
-          Swal.fire('Erro!', 'Ocorreu um erro ao deletar o item', 'error');
-          console.error(error);
-        }
-      }
-    });
+   function apagar(id) {
+      Swal.fire({
+          title: 'Deseja apagar?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Sim, apagar!'
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            Swal.fire(
+              'Deletado!',
+              'Item deletado da Lista',
+              'success'
+            )
+            await apiProjeto.delete(`/delPaciente?id=${id}`)
+            
+          }
+        })
   }
-  
 
   return (
       <div>

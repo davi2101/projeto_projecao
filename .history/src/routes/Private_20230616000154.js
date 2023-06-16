@@ -4,17 +4,16 @@ import { auth } from '../firebase/firebaseConnection'
 
 import { onAuthStateChanged } from 'firebase/auth'
 
-import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 
 export default function Private ({ children }){
   const [loading, setLoading] = useState(true);
   const [signed, setSigned] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function checkLogin(){
-      onAuthStateChanged(auth, (user) => {
+      const unsub = onAuthStateChanged(auth, (user) => {
 
         if(user){
           const userData = {
@@ -45,7 +44,7 @@ export default function Private ({ children }){
   }
 
   if(!signed){
-    return navigate('/');
+    return <Navigate to="/"/>
   
   }
 

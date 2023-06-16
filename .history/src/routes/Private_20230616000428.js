@@ -4,13 +4,13 @@ import { auth } from '../firebase/firebaseConnection'
 
 import { onAuthStateChanged } from 'firebase/auth'
 
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useHistory  } from 'react-router-dom'
 
 
 export default function Private ({ children }){
   const [loading, setLoading] = useState(true);
   const [signed, setSigned] = useState(false);
-  const navigate = useNavigate();
+  const history = useHistory();
 
   useEffect(() => {
     async function checkLogin(){
@@ -45,7 +45,7 @@ export default function Private ({ children }){
   }
 
   if(!signed){
-    return navigate('/');
+    return history.push('/')
   
   }
 

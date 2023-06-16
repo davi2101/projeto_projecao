@@ -15,33 +15,35 @@ const PacienteLista = () => {
 
   useEffect(() => {
     async function getPacientes(){
-        const response = await apiProjeto.get('/pacientes')
-        setPacientes(response.data);
+          const response = await apiProjeto.get('/pacientes')
+          .then(() => {
+            setPacientes(response.data())
+          })
       }
+
     getPacientes()
-  }, [pacientes])
+  }, [])
 
   function apagar(id) {
-    Swal.fire({
-      title: 'Deseja apagar?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sim, apagar!'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          await apiProjeto.delete(`/delPaciente?id=${id}`);
-          Swal.fire('Deletado!', 'Item deletado da Lista', 'success');
-        } catch (error) {
-          Swal.fire('Erro!', 'Ocorreu um erro ao deletar o item', 'error');
-          console.error(error);
-        }
-      }
-    });
+      Swal.fire({
+          title: 'Deseja apagar?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Sim, apagar!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire(
+              'Deletado!',
+              'Item deletado da Lista',
+              'success'
+            )
+            PacienteService.delete(id)
+            setPacientes(PacienteService.getAll())
+          }
+        })
   }
-  
 
   return (
       <div>
@@ -72,10 +74,10 @@ const PacienteLista = () => {
                           <td>{item.data_nascimento}</td>
                           <td>{item.situacao}</td>
                           <td>
-                              <Link to={'/paciente/' + item.id}><BsPencilFill /></Link>{' '}
+                              <Link to={'/paciente/' + i}><BsPencilFill /></Link>{' '}
                           </td>
                               <td>
-                              <BsTrash onClick={() => apagar(item.id)} className='text-danger' />
+                              <BsTrash onClick={() => apagar(i)} className='text-danger' />
                               </td>
                       </tr>
                   ))}
