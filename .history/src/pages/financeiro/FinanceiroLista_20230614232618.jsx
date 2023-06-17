@@ -7,40 +7,36 @@ import { BsPencilFill, BsTrash, BsCashCoin } from 'react-icons/bs'
 import Swal from 'sweetalert2'
 import { Menu } from '../../components/Menu'
 
-import apiProjeto from '../../services/apiProjeto'
-
 const FinanceiroLista = () => {
 
-  const [financeiros, setFinanceiros] = useState([])
+    const [financeiros, setFinanceiros] = useState([])
 
-  useEffect(() => {
-    async function getFinanceiro(){
-      const response = await apiProjeto.get('/financeiros');
-      setFinanceiros(response.data)
+    useEffect(() => {
+
+        setFinanceiros(FinanceiroService.getAll())
+
+    }, [])
+
+    function apagar(id) {
+        Swal.fire({
+            title: 'Deseja apagar?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, apagar!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire(
+                'Deletado!',
+                'Item deletado da Lista',
+                'success'
+              )
+              FinanceiroService.delete(id)
+             setFinanceiros(FinanceiroService.getAll())
+            }
+          })
     }
-    getFinanceiro()
-  }, [financeiros])
-
-  function apagar(id) {
-    Swal.fire({
-      title: 'Deseja apagar?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sim, apagar!'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          await apiProjeto.delete(`/delFinanceiro?id=${id}`);
-          Swal.fire('Deletado!', 'Item deletado da Lista', 'success');
-        } catch (error) {
-          Swal.fire('Erro!', 'Ocorreu um erro ao deletar o item', 'error');
-          console.error(error);
-        }
-      }
-    });
-  }
 
     return (
         <div>
@@ -66,15 +62,15 @@ const FinanceiroLista = () => {
                     {financeiros.map((item, i) => (
                         <tr key={i}>
                             
-                            <td>{item.nome_hospital}</td>
-                            <td>{item.num_nota}</td>
-                            <td>{item.data_emissao}</td>
+                            <td>{item.instituicao}</td>
+                            <td>{item.nota}</td>
+                            <td>{item.emissao}</td>
                             <td>{item.valor}</td>
                             <td>
-                                <Link to={'/financeiro/' + item.id}><BsPencilFill /></Link>{' '}
+                                <Link to={'/financeiro/' + i}><BsPencilFill /></Link>{' '}
                             </td>
                             <td>
-                                <BsTrash onClick={() => apagar(item.id)} className='text-danger' />
+                                <BsTrash onClick={() => apagar(i)} className='text-danger' />
                             </td>
                         </tr>
                     ))}

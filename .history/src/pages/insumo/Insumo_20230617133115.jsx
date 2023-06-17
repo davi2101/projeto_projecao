@@ -37,33 +37,27 @@ export const Insumos = () => {
 
   function salvar(dados, e) {
     e.preventDefault();
-
-    const data = {
-      nome: dados.nome,
-      volume: dados.volume,
-      lote: parseInt(dados.lote)
-    }
   
     if (params.id) {
       apiProjeto
-        .put(`/attInsumo/?id=${params.id}`, data)
+        .put(`/attHospital/?id=${params.id}`, dados)
         .then(() => {
-          toast.success("Insumo atualizados com sucesso");
-          navigate('/insumo/lista');
+          toast.success("Dados do paciente atualizados com sucesso");
+          navigate('/hospital/lista');
         })
         .catch((error) => {
-          toast.error("Erro ao atualizar os dados");
+          toast.error("Erro ao atualizar os dados do hospital");
           console.error(error);
         });
     } else {
       apiProjeto
-        .post('/addInsumo', data)
+        .post('/addHospital', dados)
         .then(() => {
-          toast.success("Insumo cadastrado com sucesso");
-          navigate('/insumo/lista');
+          toast.success("Hospital cadastrado com sucesso");
+          navigate('/hospital/lista');
         })
         .catch((error) => {
-          toast.error("Erro ao cadastrar Insumo");
+          toast.error("Erro ao cadastrar o hospital");
           console.error(error);
         });
     }

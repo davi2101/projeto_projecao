@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import { FaCheck } from 'react-icons/fa'
@@ -7,66 +7,36 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import InsumoService from '../../services/InsumoService'
 import insumoValidator from '../../validators/insumoValidator'
 import { BsDropletFill, BsSearch } from 'react-icons/bs'
+import { Carousel } from 'react-bootstrap'
 import { mask } from 'remask'
 import { Menu } from '../../components/Menu'
-import apiProjeto from '../../services/apiProjeto'
-import { toast } from 'react-toastify'
 
 export const Insumos = () => {
-  const [insumos, setInsumos] = useState([])
 
   const params = useParams()
   const navigate = useNavigate()
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
   useEffect(() => {
-    async function getPaciente() {
-      if (params.id) {
-        const response = await apiProjeto.get(`/idInsumo/${params.id}`);
-        setInsumos(response.data);
+    if (params.id) {
+      const insumos = InsumoService.get(params.id)
+
+      for (let campo in insumos) {
+        setValue(campo, insumos[campo])
       }
     }
-    getPaciente();
-  }, [params.id]);
+  }, [])
 
-  useEffect(() => {
-    for (let campo in insumos) {
-      setValue(campo, insumos[campo]);
-    }
-  }, [insumos, setValue]);
+  function salvar(dados) {
 
-  function salvar(dados, e) {
-    e.preventDefault();
-
-    const data = {
-      nome: dados.nome,
-      volume: dados.volume,
-      lote: parseInt(dados.lote)
-    }
-  
     if (params.id) {
-      apiProjeto
-        .put(`/attInsumo/?id=${params.id}`, data)
-        .then(() => {
-          toast.success("Insumo atualizados com sucesso");
-          navigate('/insumo/lista');
-        })
-        .catch((error) => {
-          toast.error("Erro ao atualizar os dados");
-          console.error(error);
-        });
-    } else {
-      apiProjeto
-        .post('/addInsumo', data)
-        .then(() => {
-          toast.success("Insumo cadastrado com sucesso");
-          navigate('/insumo/lista');
-        })
-        .catch((error) => {
-          toast.error("Erro ao cadastrar Insumo");
-          console.error(error);
-        });
+      InsumoService.update(params.id, dados)
+    } 
+    else {
+      InsumoService.create(dados)
     }
+
+    navigate('/insumo/lista')
   }
 
   function handleChange(event){

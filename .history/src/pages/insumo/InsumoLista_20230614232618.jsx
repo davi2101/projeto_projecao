@@ -6,40 +6,37 @@ import { FaPlus } from 'react-icons/fa'
 import { BsPencilFill, BsTrash, BsDropletFill } from 'react-icons/bs'
 import Swal from 'sweetalert2'
 import { Menu } from '../../components/Menu'
-import apiProjeto from '../../services/apiProjeto'
 
 const InsumosLista = () => {
 
     const [insumos, setInsumos] = useState([])
 
     useEffect(() => {
-        async function getInsumo(){
-            const response = apiProjeto.get('/insumos');
-            setInsumos((await response).data)
-        }
-        getInsumo()
-    }, [insumos])
+
+        setInsumos(InsumoService.getAll())
+
+    }, [])
 
     function apagar(id) {
         Swal.fire({
-          title: 'Deseja apagar?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Sim, apagar!'
-        }).then(async (result) => {
-          if (result.isConfirmed) {
-            try {
-              await apiProjeto.delete(`/delInsumo?id=${id}`);
-              Swal.fire('Deletado!', 'Item deletado da Lista', 'success');
-            } catch (error) {
-              Swal.fire('Erro!', 'Ocorreu um erro ao deletar o item', 'error');
-              console.error(error);
+            title: 'Deseja apagar?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, apagar!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire(
+                'Deletado!',
+                'Item deletado da Lista',
+                'success'
+              )
+              InsumoService.delete(id)
+             setInsumos(InsumoService.getAll())
             }
-          }
-        });
-      }
+          })
+    }
 
     return (
         <div>
@@ -67,10 +64,10 @@ const InsumosLista = () => {
                             <td>{item.volume}</td>
                             <td>{item.lote}</td>
                             <td>
-                                <Link to={'/insumo/' + item.id}><BsPencilFill /></Link>{' '}
+                                <Link to={'/insumo/' + i}><BsPencilFill /></Link>{' '}
                             </td>
                                 <td>
-                                <BsTrash onClick={() => apagar(item.id)} className='text-danger' />
+                                <BsTrash onClick={() => apagar(i)} className='text-danger' />
                                 </td>
                         </tr>
                     ))}

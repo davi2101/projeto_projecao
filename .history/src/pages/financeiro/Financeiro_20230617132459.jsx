@@ -35,7 +35,7 @@ export const Financeiros = () => {
     }, [financeiro, setValue]);
 
     function salvar(dados, e) {
-      e.preventDefault();
+      
 
       const data = {
           nome_hospital: dados.nome_hospital,

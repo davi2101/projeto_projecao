@@ -29,44 +29,16 @@ export const Insumos = () => {
     getPaciente();
   }, [params.id]);
 
-  useEffect(() => {
-    for (let campo in insumos) {
-      setValue(campo, insumos[campo]);
-    }
-  }, [insumos, setValue]);
+  function salvar(dados) {
 
-  function salvar(dados, e) {
-    e.preventDefault();
-
-    const data = {
-      nome: dados.nome,
-      volume: dados.volume,
-      lote: parseInt(dados.lote)
-    }
-  
     if (params.id) {
-      apiProjeto
-        .put(`/attInsumo/?id=${params.id}`, data)
-        .then(() => {
-          toast.success("Insumo atualizados com sucesso");
-          navigate('/insumo/lista');
-        })
-        .catch((error) => {
-          toast.error("Erro ao atualizar os dados");
-          console.error(error);
-        });
-    } else {
-      apiProjeto
-        .post('/addInsumo', data)
-        .then(() => {
-          toast.success("Insumo cadastrado com sucesso");
-          navigate('/insumo/lista');
-        })
-        .catch((error) => {
-          toast.error("Erro ao cadastrar Insumo");
-          console.error(error);
-        });
+      InsumoService.update(params.id, dados)
+    } 
+    else {
+      InsumoService.create(dados)
     }
+
+    navigate('/insumo/lista')
   }
 
   function handleChange(event){

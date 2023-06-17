@@ -37,12 +37,12 @@ export const Financeiros = () => {
     function salvar(dados, e) {
       e.preventDefault();
 
-      const data = {
-          nome_hospital: dados.nome_hospital,
+      const data = [{
+        nome_hospital: dados.nome_hospital,
           num_nota: parseInt(dados.num_nota),
           data_emissao: dados.data_emissao,
           valor: dados.valor
-      };
+      }];
   
       if (params.id) {
         apiProjeto
@@ -86,7 +86,7 @@ export const Financeiros = () => {
       <Form>
         <Form.Group className="m-3" controlId="nome_hospital">
           <Form.Label>  </Form.Label>
-          <Form.Control isInvalid={errors.nome_hospital} placeholder="NOME DO HOSPITAL" type="text" 
+          <Form.Control isInvalid={errors.instituicao} placeholder="NOME DO HOSPITAL" type="text" 
           {...register("nome_hospital", financeiroValidator.instituicao)} 
           />
           {errors.instituicao && <span>{errors.instituicao.message}</span>}
@@ -95,7 +95,7 @@ export const Financeiros = () => {
         <Form.Group className="m-3" controlId="num_nota">
           <Form.Label>  </Form.Label>
           <Form.Control 
-            isInvalid={errors.num_nota} 
+            isInvalid={errors.nota} 
             placeholder="Nº DA NOTA" 
             type="int" 
             {...register("num_nota", financeiroValidator.nota)} 
@@ -106,13 +106,13 @@ export const Financeiros = () => {
         <Form.Group className="m-3" controlId="data_emissao">
           <Form.Label> </Form.Label>
           <Form.Control 
-          isInvalid={errors.data_emissao} 
+          isInvalid={errors.emissao} 
           placeholder="DATA DE EMISSÃO"
           type="text" 
-          {...register("data_emissao", financeiroValidator.data_emissao)}
+          {...register("data_emissao", financeiroValidator.emissao)}
           mask="99/99/9999" onChange={handleChange}
            />
-          {errors.data_emissao && <span>{errors.data_emissao.message}</span>}
+          {errors.emissao && <span>{errors.emissao.message}</span>}
         </Form.Group>
 
         <Form.Group className="m-3" controlId="valor">

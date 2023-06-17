@@ -36,29 +36,21 @@ export const Financeiros = () => {
 
     function salvar(dados, e) {
       e.preventDefault();
-
-      const data = {
-          nome_hospital: dados.nome_hospital,
-          num_nota: parseInt(dados.num_nota),
-          data_emissao: dados.data_emissao,
-          valor: dados.valor
-      };
-  
+    
       if (params.id) {
         apiProjeto
-          .put(`/attFinanceiro/?id=${params.id}`, data)
+          .put(`/attFinanceiro/?id=${params.id}`, dados)
           .then(() => {
             toast.success("Dados atualizados com sucesso");
-            navigate('/financeiro/lista');
+            navigate('/hospital/lista');
           })
           .catch((error) => {
             toast.error("Erro ao atualizar os dados!!");
             console.error(error);
           });
       } else {
-        console.log(data);
         apiProjeto
-          .post('/addFinanceiro', data)
+          .post('/addHospital', dados)
           .then(() => {
             toast.success("Finança cadastrada com sucesso");
             navigate('/financeiro/lista');
@@ -82,37 +74,36 @@ export const Financeiros = () => {
 
       <h1 className='d-flex align-items-center justify-content-center mt-3'><BsCashCoin></BsCashCoin> FINANCEIRO</h1>
 
+      
+
       <br></br>
       <Form>
-        <Form.Group className="m-3" controlId="nome_hospital">
+        <Form.Group className="m-3" controlId="instituicao">
           <Form.Label>  </Form.Label>
-          <Form.Control isInvalid={errors.nome_hospital} placeholder="NOME DO HOSPITAL" type="text" 
-          {...register("nome_hospital", financeiroValidator.instituicao)} 
+          <Form.Control isInvalid={errors.instituicao} placeholder="NOME DO HOSPITAL" type="text" 
+          {...register("instituicao", financeiroValidator.instituicao)} 
           />
           {errors.instituicao && <span>{errors.instituicao.message}</span>}
         </Form.Group>
 
-        <Form.Group className="m-3" controlId="num_nota">
+        <Form.Group className="m-3" controlId="nota">
           <Form.Label>  </Form.Label>
-          <Form.Control 
-            isInvalid={errors.num_nota} 
-            placeholder="Nº DA NOTA" 
-            type="int" 
-            {...register("num_nota", financeiroValidator.nota)} 
+          <Form.Control isInvalid={errors.nota} placeholder="Nº DA NOTA" type="number" 
+          {...register("nota", financeiroValidator.nota)} 
           />
           {errors.nota && <span>{errors.nota.message}</span>}
         </Form.Group>
 
-        <Form.Group className="m-3" controlId="data_emissao">
+        <Form.Group className="m-3" controlId="emissao">
           <Form.Label> </Form.Label>
           <Form.Control 
-          isInvalid={errors.data_emissao} 
+          isInvalid={errors.emissao} 
           placeholder="DATA DE EMISSÃO"
           type="text" 
-          {...register("data_emissao", financeiroValidator.data_emissao)}
+          {...register("emissao", financeiroValidator.emissao)}
           mask="99/99/9999" onChange={handleChange}
            />
-          {errors.data_emissao && <span>{errors.data_emissao.message}</span>}
+          {errors.emissao && <span>{errors.emissao.message}</span>}
         </Form.Group>
 
         <Form.Group className="m-3" controlId="valor">

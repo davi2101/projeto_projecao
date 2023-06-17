@@ -1,11 +1,11 @@
 const financeiroValidator = {
-    nome_hospital: {
+    instituicao: {
         maxLength: {
             value: 50,
             message: "Quantidade máxima de caracteres ultrapassada"
         },
     },
-    num_nota: {
+    nota: {
         required: "O Nº da Nota é Obrigatório",
         minLength: {
             value: 3,
@@ -16,7 +16,7 @@ const financeiroValidator = {
             message: "Quantidade máxima de caracteres ultrapassada"
         },
     },
-    data_emissao: {
+    emissao: {
         required: "A data de Emissão é Obrigatório",
         minLength: {
             value: 2,
