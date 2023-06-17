@@ -18,8 +18,8 @@ function pacientesPDF(PacienteLista){
                     {text: pacientes.nome, fontSize: 9, margin: [0, 2, 0, 2]},
                     {text: pacientes.hospital, fontSize: 9, margin: [0, 2, 0, 2]},
                     {text: pacientes.cpf, fontSize: 9, margin: [0, 2, 0, 2]},
-                    {text: pacientes.datanascimento, fontSize: 9, margin: [0, 2, 0, 2]},
-                    {text: pacientes.status, fontSize: 9, margin: [0, 2, 0, 2]}
+                    {text: pacientes.data_nascimento, fontSize: 9, margin: [0, 2, 0, 2]},
+                    {text: pacientes.situacao, fontSize: 9, margin: [0, 2, 0, 2]}
         ]
     }); 
 

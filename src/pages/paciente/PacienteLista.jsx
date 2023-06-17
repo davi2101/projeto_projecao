@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import PacienteService from '../../services/PacienteService'
 import { FaPlus } from 'react-icons/fa'
 import { BsPencilFill, BsTrash, BsFillPersonFill, BsFilePdfFill} from 'react-icons/bs'
 import Swal from 'sweetalert2'
