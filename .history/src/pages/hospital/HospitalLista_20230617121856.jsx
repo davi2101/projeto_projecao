@@ -19,28 +19,28 @@ const HospitalLista = () => {
         setHospital(response.data)
       }
       getHospitais()
-    }, [hospital])
+    }, [])
 
-    function apagar(id) {
-      Swal.fire({
+  function apagar(id) {
+    Swal.fire({
         title: 'Deseja apagar?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Sim, apagar!'
-      }).then(async (result) => {
+    }).then((result) => {
         if (result.isConfirmed) {
-          try {
-            await apiProjeto.delete(`/delHospital?id=${id}`);
-            Swal.fire('Deletado!', 'Item deletado da Lista', 'success');
-          } catch (error) {
-            Swal.fire('Erro!', 'Ocorreu um erro ao deletar o item', 'error');
-            console.error(error);
-          }
+            Swal.fire(
+                'Deletado!',
+                'Item deletado da Lista',
+                'success'
+            )
+            HospitalService.delete(id)
+            setHospital(HospitalService.getAll())
         }
-      });
-    }
+      })
+  }
 
     return (
       <div>

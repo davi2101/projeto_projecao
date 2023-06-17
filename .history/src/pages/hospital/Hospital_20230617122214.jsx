@@ -39,7 +39,7 @@ export const Hospitals = () => {
   
     if (params.id) {
       apiProjeto
-        .put(`/attHospital/?id=${params.id}`, dados)
+        .put(`/attInsumo/?id=${params.id}`, dados)
         .then(() => {
           toast.success("Dados do paciente atualizados com sucesso");
           navigate('/hospital/lista');
@@ -50,9 +50,9 @@ export const Hospitals = () => {
         });
     } else {
       apiProjeto
-        .post('/addHospital', dados)
+        .post('/addInsumo', dados)
         .then(() => {
-          toast.success("Hospital cadastrado com sucesso");
+          toast.success("Usuário cadastrado com sucesso");
           navigate('/hospital/lista');
         })
         .catch((error) => {

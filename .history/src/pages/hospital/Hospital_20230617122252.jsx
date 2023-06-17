@@ -52,7 +52,7 @@ export const Hospitals = () => {
       apiProjeto
         .post('/addHospital', dados)
         .then(() => {
-          toast.success("Hospital cadastrado com sucesso");
+          toast.success("Usuário cadastrado com sucesso");
           navigate('/hospital/lista');
         })
         .catch((error) => {

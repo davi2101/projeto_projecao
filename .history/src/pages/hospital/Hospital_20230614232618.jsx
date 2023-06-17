@@ -1,65 +1,40 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import { FaCheck } from 'react-icons/fa'
 import { BsArrowLeft } from 'react-icons/bs'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import HospitalService from '../../services/HospitalService'
 import hospitalValidator from '../../validators/hospitalValidator'
 import { mask } from 'remask'
 import { BsBuilding, BsSearch } from 'react-icons/bs'
 import { Menu } from '../../components/Menu'
-import apiProjeto from '../../services/apiProjeto'
-import { toast } from 'react-toastify'
 
 export const Hospitals = () => {
-  const [hospital, setHospital] = useState([]);
 
   const params = useParams()
   const navigate = useNavigate()
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
   useEffect(() => {
-    async function getPaciente() {
-      if (params.id) {
-        const response = await apiProjeto.get(`/idHospital/${params.id}`);
-        setHospital(response.data);
+    if (params.id) {
+      const hospital = HospitalService.get(params.id)
+
+      for (let campo in hospital) {
+        setValue(campo, hospital[campo])
       }
     }
-    getPaciente();
-  }, [params.id]);
+  }, [])
 
-  useEffect(() => {
-    for (let campo in hospital) {
-      setValue(campo, hospital[campo]);
-    }
-  }, [hospital, setValue]);
+  function salvar(dados) {
 
-  function salvar(dados, e) {
-    e.preventDefault();
-  
     if (params.id) {
-      apiProjeto
-        .put(`/attHospital/?id=${params.id}`, dados)
-        .then(() => {
-          toast.success("Dados do paciente atualizados com sucesso");
-          navigate('/hospital/lista');
-        })
-        .catch((error) => {
-          toast.error("Erro ao atualizar os dados do hospital");
-          console.error(error);
-        });
+        HospitalService.update(params.id, dados)
     } else {
-      apiProjeto
-        .post('/addHospital', dados)
-        .then(() => {
-          toast.success("Hospital cadastrado com sucesso");
-          navigate('/hospital/lista');
-        })
-        .catch((error) => {
-          toast.error("Erro ao cadastrar o hospital");
-          console.error(error);
-        });
+        HospitalService.create(dados)
     }
+
+    navigate('/hospital/lista')
   }
 
   function handleChange(event) {

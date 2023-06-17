@@ -19,7 +19,7 @@ const HospitalLista = () => {
         setHospital(response.data)
       }
       getHospitais()
-    }, [hospital])
+    }, [])
 
     function apagar(id) {
       Swal.fire({

@@ -39,24 +39,24 @@ export const Hospitals = () => {
   
     if (params.id) {
       apiProjeto
-        .put(`/attHospital/?id=${params.id}`, dados)
+        .put(`/attPaciente/?id=${params.id}`, dados)
         .then(() => {
           toast.success("Dados do paciente atualizados com sucesso");
-          navigate('/hospital/lista');
+          navigate('/paciente/lista');
         })
         .catch((error) => {
-          toast.error("Erro ao atualizar os dados do hospital");
+          toast.error("Erro ao atualizar os dados do paciente");
           console.error(error);
         });
     } else {
       apiProjeto
-        .post('/addHospital', dados)
+        .post('/addPaciente', dados)
         .then(() => {
-          toast.success("Hospital cadastrado com sucesso");
-          navigate('/hospital/lista');
+          toast.success("Usuário cadastrado com sucesso");
+          navigate('/paciente/lista');
         })
         .catch((error) => {
-          toast.error("Erro ao cadastrar o hospital");
+          toast.error("Erro ao cadastrar o paciente");
           console.error(error);
         });
     }

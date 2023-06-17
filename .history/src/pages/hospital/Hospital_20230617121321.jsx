@@ -4,12 +4,12 @@ import { useForm } from 'react-hook-form'
 import { FaCheck } from 'react-icons/fa'
 import { BsArrowLeft } from 'react-icons/bs'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import HospitalService from '../../services/HospitalService'
 import hospitalValidator from '../../validators/hospitalValidator'
 import { mask } from 'remask'
 import { BsBuilding, BsSearch } from 'react-icons/bs'
 import { Menu } from '../../components/Menu'
 import apiProjeto from '../../services/apiProjeto'
-import { toast } from 'react-toastify'
 
 export const Hospitals = () => {
   const [hospital, setHospital] = useState([]);
@@ -34,32 +34,15 @@ export const Hospitals = () => {
     }
   }, [hospital, setValue]);
 
-  function salvar(dados, e) {
-    e.preventDefault();
-  
+  function salvar(dados) {
+
     if (params.id) {
-      apiProjeto
-        .put(`/attHospital/?id=${params.id}`, dados)
-        .then(() => {
-          toast.success("Dados do paciente atualizados com sucesso");
-          navigate('/hospital/lista');
-        })
-        .catch((error) => {
-          toast.error("Erro ao atualizar os dados do hospital");
-          console.error(error);
-        });
+        HospitalService.update(params.id, dados)
     } else {
-      apiProjeto
-        .post('/addHospital', dados)
-        .then(() => {
-          toast.success("Hospital cadastrado com sucesso");
-          navigate('/hospital/lista');
-        })
-        .catch((error) => {
-          toast.error("Erro ao cadastrar o hospital");
-          console.error(error);
-        });
+        HospitalService.create(dados)
     }
+
+    navigate('/hospital/lista')
   }
 
   function handleChange(event) {

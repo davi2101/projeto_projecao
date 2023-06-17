@@ -39,20 +39,20 @@ export const Hospitals = () => {
   
     if (params.id) {
       apiProjeto
-        .put(`/attHospital/?id=${params.id}`, dados)
+        .put(`/attInsumo/?id=${params.id}`, dados)
         .then(() => {
           toast.success("Dados do paciente atualizados com sucesso");
           navigate('/hospital/lista');
         })
         .catch((error) => {
-          toast.error("Erro ao atualizar os dados do hospital");
+          toast.error("Erro ao atualizar os dados do paciente");
           console.error(error);
         });
     } else {
       apiProjeto
-        .post('/addHospital', dados)
+        .post('/addInsumo', dados)
         .then(() => {
-          toast.success("Hospital cadastrado com sucesso");
+          toast.success("Usuário cadastrado com sucesso");
           navigate('/hospital/lista');
         })
         .catch((error) => {
